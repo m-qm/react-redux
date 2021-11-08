@@ -1,8 +1,5 @@
 import React from 'react';
 import useFetch from "./store/actions.js";
-
-import { BrowserRouter as Router } from 'react-router-dom';
-
 import List from './List';
 import './index.scss';
 

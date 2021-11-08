@@ -5,6 +5,7 @@ const ACTIONS = {
   API_REQUEST: "api-request",
   FETCH_DATA: "fetch-data",
   ERROR: "error",
+  UPDATE_item: "update"
 };
 
 const initialState = {
@@ -22,6 +23,21 @@ function reducer(state, { type, payload }) {
       return { ...state, data: payload, loading: false };
     case ACTIONS.ERROR:
       return { ...state, data: [], error: payload };
+    case ACTIONS.UPDATE_ITEM:
+      const current = state.data.find(
+        (item) => item.id === payload.id
+      );
+      current.item.name = payload.data.name;
+      current.item.tags = payload.data.tags;
+      current.item.stars = payload.data.stars;
+      current.item.description = payload.data.description;
+      state = {
+        ...state,
+        items: state.items.map((item) =>
+          item.id === payload.id ? current : item
+        ),
+      };
+      return state;
     default:
       return state;
   }
