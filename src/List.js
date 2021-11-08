@@ -2,13 +2,13 @@ import React from 'react';
 
 import ListItem from './ListItem';
 
-const List = ({ items = [] }) => {
+const List = ({ items }) => {
   console.log(items)
   return (
     <section className="List">
-      {items.map(item => (
+      {items ? items.map(item => (
         <ListItem key={item.id} item={item} />
-      ))}
+      )) : <div>No items</div>}
     </section>
   );
 };
