@@ -6,24 +6,22 @@ const List = ({ items = [] }) => {
   console.log(items);
   return (
     <div className="row">
-      <table class="u-full-width">
+      <table className="u-full-width">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
+            <th>Number of comments</th>
+            <th>Stars</th>
+            <th>Views</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            {items ? (
-              items &&
-              items.map((item) => <ListItem key={item.id} item={item} />)
-            ) : (
-              <div className="no-items">No items</div>
-            )}
-          </tr>
+          {items ? (
+            items && items.map((item) => <ListItem key={item.id} item={item} />)
+          ) : (
+            <div className="no-items">No items</div>
+          )}
         </tbody>
       </table>
     </div>

@@ -17,7 +17,6 @@ input[type='submit'] {
   border: 5px solid lighten($primary-color, 30%);
   color: white;
   margin: 0 0.5em;
-  padding: 1em;
   outline: none;
   &:hover {
     background-color: darken($primary-color, 5%);
@@ -33,22 +32,4 @@ input {
     display: block;
     margin: 0.5em;
   }
-}
-
-form {
-  padding: 0.5em;
-  margin: 1em 0;
-  display: flex;
-  flex-direction: column;
-  label {
-    text-align: center;
-    display: block;
-    margin-bottom: 0.5em;
-  }
-}
-
-.ListItemLink {
-  display: flex;
-  justify-content: space-evenly;
-  text-align: left;
 }
