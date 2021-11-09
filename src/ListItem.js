@@ -1,7 +1,6 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const ListItem = ({ item }) => {
-  console.log(item);
   const { id, number_of_comments, stars, views } = item;
   return (
     <tr key={id}>
@@ -11,7 +10,14 @@ const ListItem = ({ item }) => {
       <td>{views}</td>
       <td>
         <button className="button-primary">Delete</button>
-        <button>Edit</button>
+        <Link
+          to={{
+            pathname: `${item.id}`,
+            state: { items: item }
+          }}
+        >
+          Edit
+        </Link>
       </td>
     </tr>
   );

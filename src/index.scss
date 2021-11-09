@@ -1,4 +1,4 @@
-$primary-color: magenta;
+$primary-color: rgb(255, 115, 0);
 
 html,
 body,
@@ -23,13 +23,5 @@ input[type='submit'] {
   }
   &:active {
     background-color: darken($primary-color, 10%);
-  }
-}
-
-input {
-  padding: 1em;
-  &:not([type='submit']) {
-    display: block;
-    margin: 0.5em;
   }
 }

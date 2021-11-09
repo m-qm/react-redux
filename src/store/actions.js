@@ -1,21 +1,20 @@
-import { useReducer, useEffect } from "react";
-import axios from "axios";
+import { useReducer, useEffect } from 'react';
+import axios from 'axios';
 
 const ACTIONS = {
-  API_REQUEST: "api-request",
-  FETCH_DATA: "fetch-data",
-  ERROR: "error",
-  UPDATE_item: "update"
+  API_REQUEST: 'api-request',
+  FETCH_DATA: 'fetch-data',
+  ERROR: 'error',
+  UPDATE_item: 'update'
 };
 
 const initialState = {
   data: [],
   loading: false,
-  error: null,
+  error: null
 };
 
 function reducer(state, { type, payload }) {
-  console.log(payload);
   switch (type) {
     case ACTIONS.API_REQUEST:
       return { ...state, data: [], loading: true };
@@ -24,9 +23,7 @@ function reducer(state, { type, payload }) {
     case ACTIONS.ERROR:
       return { ...state, data: [], error: payload };
     case ACTIONS.UPDATE_ITEM:
-      const current = state.data.find(
-        (item) => item.id === payload.id
-      );
+      const current = state.data.find((item) => item.id === payload.id);
       current.item.name = payload.data.name;
       current.item.tags = payload.data.tags;
       current.item.stars = payload.data.stars;
@@ -35,7 +32,7 @@ function reducer(state, { type, payload }) {
         ...state,
         items: state.items.map((item) =>
           item.id === payload.id ? current : item
-        ),
+        )
       };
       return state;
     default:
@@ -45,7 +42,6 @@ function reducer(state, { type, payload }) {
 
 function useFetch(url) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state)
   useEffect(() => {
     dispatch({ type: ACTIONS.API_REQUEST });
     axios
