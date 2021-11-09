@@ -6,14 +6,23 @@ const ListItem = ({ item }) => {
   console.log(item);
   const { id, number_of_comments, stars, views } = item;
   return (
-    <article className="ListItem">
-      <NavLink className="ListItemLink" to={`${id}`}>
-        <div>{id}</div>
-        <div>{number_of_comments}</div>
-        <div>{stars}</div>
-        <div>{views}</div>
-      </NavLink>
-    </article>
+    <div className="row">
+      <tr>
+        <td>1</td>
+        <td>Dave Gamache</td>
+        <td>dave@gmail.com</td>
+        <NavLink className="ListItemLink" to={`${id}`}>
+          <td>{id}</td>
+          <td>{number_of_comments}</td>
+          <td>{stars}</td>
+          <td>{views}</td>
+        </NavLink>
+        <td>
+          <button>Delete</button>
+          <button>Edit</button>
+        </td>
+      </tr>
+    </div>
   );
 };
 

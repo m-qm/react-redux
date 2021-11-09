@@ -1,7 +1,8 @@
 import React, { useReducer, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { useState } from 'react';
 
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import List from './List';
 
@@ -61,25 +62,26 @@ const useFetch = (url) => {
 
     fetchUrl();
   }, [url]);
-console.log(state)
+  console.log(state);
   return [state.items, state.loading, state.error];
 };
 
 const Application = () => {
   const [state, loading, error] = useFetch(endpoint + '/social');
-  // const data = state && state.items.response || [];
-  // console.log(data)
+  const data = state && state.response;
+  console.log(data);
   return (
     <div className="Application">
       <header>
         <h1>Tests</h1>
       </header>
-      <main>
-        <section className="sidebar">
-          {loading ? <p>Loading…</p> : <List items={items} />}
+      <div className="container">
+        <div className="row">
+          {' '}
+          {loading ? <p>Loading…</p> : <List items={data} />}
           {error && <p className="error">{error.message}</p>}
-        </section>
-      </main>
+        </div>{' '}
+      </div>{' '}
     </div>
   );
 };
