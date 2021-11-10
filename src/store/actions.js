@@ -1,12 +1,12 @@
-import { useReducer, useEffect } from 'react';
-import axios from 'axios';
+import { useReducer, useEffect } from "react";
+import axios from "axios";
 
 const ACTIONS = {
-  API_REQUEST: 'api-request',
-  FETCH_DATA: 'fetch-data',
-  ERROR: 'error',
-  UPDATE_ITEM: 'update',
-  DELETE_ITEM: 'deleteItem'
+  API_REQUEST: "api-request",
+  FETCH_DATA: "fetch-data",
+  ERROR: "error",
+  UPDATE_ITEM: "update",
+  DELETE_ITEM: "deleteItem"
 };
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
   error: null
 };
 
-function reducer(state, { type, payload }) {
+function reducer(state, { type, payload }, action) {
   switch (type) {
     case ACTIONS.API_REQUEST:
       return { ...state, data: [], loading: true };
@@ -27,10 +27,10 @@ function reducer(state, { type, payload }) {
       // TODO IMPLEMENT ACTIONS
       return {
         ...state,
-        data: state.items.filter((item, index) => index !== payload)
+        data: state.items.filter((item, index) => index !== action.payload)
       };
     case ACTIONS.UPDATE_ITEM:
-      const current = state.data.find((item) => item.id === payload.id);
+      const current = state.data.find(item => item.id === payload.id);
       console.log(current);
       current.item.name = payload.data.name;
       current.item.tags = payload.data.tags;
@@ -38,8 +38,8 @@ function reducer(state, { type, payload }) {
       current.item.description = payload.data.description;
       state = {
         ...state,
-        items: state.items.map((item) =>
-          item.id === payload.id ? current : item
+        items: state.items.map(
+          item => (item.id === payload.id ? current : item)
         )
       };
       return state;
@@ -47,21 +47,27 @@ function reducer(state, { type, payload }) {
       return state;
   }
 }
+export const deleteItem = index => ({
+  type: ACTIONS.DELETE_ITEM,
+  payload: index
+});
 
-function useFetch(url) {
+export function useFetch(url) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  useEffect(() => {
-    dispatch({ type: ACTIONS.API_REQUEST });
-    axios
-      .get(url)
-      .then((res) => {
-        dispatch({ type: ACTIONS.FETCH_DATA, payload: res.data });
-      })
-      .catch((e) => {
-        dispatch({ type: ACTIONS.ERROR, payload: e.error });
-      });
-  }, [url]);
+  useEffect(
+    () => {
+      dispatch({ type: ACTIONS.API_REQUEST });
+      axios
+        .get(url)
+        .then(res => {
+          dispatch({ type: ACTIONS.FETCH_DATA, payload: res.data });
+        })
+        .catch(e => {
+          dispatch({ type: ACTIONS.ERROR, payload: e.error });
+        });
+    },
+    [url]
+  );
   return state;
 }
-
 export default useFetch;
