@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import useFetch from './store/actions.js';
 import List from './List';
+import { deleteItem } from './store/actions.js';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import './index.scss';
 
 const endpoint = 'http://localhost:8000';
 
 const Application = () => {
   const { data, loading, error } = useFetch(endpoint + '/social');
+  const [state, setState] = useState([]);
+  useEffect(() => {
+    const fetchData = () => {
+      const res = data ? setState(data) : '';
+      return res;
+    };
+    console.log(state);
+    fetchData();
+  }, []);
+
   return (
     <div className="Application">
       <header>
@@ -22,4 +35,13 @@ const Application = () => {
   );
 };
 
-export default Application;
+const mapActionsToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      deleteItem
+    },
+    dispatch
+  );
+};
+
+export default connect(null, mapActionsToProps)(Application);
