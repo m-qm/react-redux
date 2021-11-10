@@ -5,7 +5,8 @@ const ACTIONS = {
   API_REQUEST: 'api-request',
   FETCH_DATA: 'fetch-data',
   ERROR: 'error',
-  UPDATE_item: 'update'
+  UPDATE_ITEM: 'update',
+  DELETE_ITEM: 'deleteItem'
 };
 
 const initialState = {
@@ -22,8 +23,15 @@ function reducer(state, { type, payload }) {
       return { ...state, data: payload, loading: false };
     case ACTIONS.ERROR:
       return { ...state, data: [], error: payload };
+    case ACTIONS.DELETE_ITEM:
+      // TODO IMPLEMENT ACTIONS
+      return {
+        ...state,
+        data: state.items.filter((item, index) => index !== payload)
+      };
     case ACTIONS.UPDATE_ITEM:
       const current = state.data.find((item) => item.id === payload.id);
+      console.log(current);
       current.item.name = payload.data.name;
       current.item.tags = payload.data.tags;
       current.item.stars = payload.data.stars;

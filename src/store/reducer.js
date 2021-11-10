@@ -5,7 +5,7 @@ export const reducer = (state, action) => {
     return {
       result: null,
       loading: true,
-      error: null,
+      error: null
     };
   }
 
@@ -13,7 +13,7 @@ export const reducer = (state, action) => {
     return {
       result: action.payload.result,
       loading: false,
-      error: null,
+      error: null
     };
   }
 
@@ -21,10 +21,26 @@ export const reducer = (state, action) => {
     return {
       result: null,
       loading: false,
-      error: action.payload.error,
+      error: action.payload.error
     };
+  }
+
+  if (action.type === 'UPDATE_ITEM') {
+    return state.items.map((item) => {
+      if (state.items.id === action.payload.id) {
+        return {
+          ...item,
+          ...action.payload
+        };
+      } else {
+        return item;
+      }
+    });
+  }
+
+  if (action.type === 'DELETE_ITEM') {
+    return state.items.filter(({ id }) => id !== action.payload.id);
   }
 
   return state;
 };
-

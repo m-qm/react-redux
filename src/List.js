@@ -8,6 +8,7 @@ const List = ({ items = [] }) => {
       <table className="u-full-width">
         <thead>
           <tr>
+            <th>Name</th>
             <th>ID</th>
             <th>Number of comments</th>
             <th>Stars</th>
